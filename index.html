@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rummikub Timer</title>
+
+    <style>
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        p {
+            font-size: 30rem;
+        }
+    </style>
+</head>
+<body>
+    <section>
+        <p>0</p>
+    </section>
+
+    <script>
+        const timer = Number(prompt('Enter the number of seconds:'));
+        let nextOne = false;
+        if (Number.isNaN(timer) || timer <= 0) { window.location.reload(); }
+
+        const el = document.querySelector('p');
+
+        el.innerText = timer;
+
+        const interval = setInterval(() => {
+          let amount = Number(el.innerText);
+
+          if (amount === 0 || nextOne) {
+            nextOne = false;
+
+            const msg = new SpeechSynthesisUtterance('Next one!');
+            window.speechSynthesis.speak(msg);
+
+            amount = timer;
+          } else {
+            amount--;
+
+            if (amount <= 10) {
+              const msg = new SpeechSynthesisUtterance(amount);
+              window.speechSynthesis.speak(msg);
+            }
+          }
+
+          el.innerText = amount;
+        }, 1000);
+
+        el.addEventListener('click', function (event) {
+          nextOne = true;
+        });
+
+        el.addEventListener('dblclick', function (event) {
+          clearInterval(interval);
+        });
+    </script>
+</body>
+</html>
