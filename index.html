@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <title>Rummikub Timer</title>
 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <style>
         html, body {
             height: 100%;
@@ -16,19 +18,34 @@
         }
 
         p {
-            font-size: 30rem;
+            font-size: 25rem;
+        }
+
+        span {
+            position: absolute;
+            top: 0;
+            font-size: 2rem;
         }
     </style>
 </head>
 <body>
+    <span>
+        Click on number to restart timer <br />
+        Double Click on number to stop timer <br />
+        Reload the page to select different amount of seconds
+    </span>
+
     <section>
         <p>0</p>
     </section>
 
     <script>
-        const timer = Number(prompt('Enter the number of seconds:'));
+        const timer = prompt('Enter the number of seconds:');
         let nextOne = false;
-        if (Number.isNaN(timer) || timer <= 0) { window.location.reload(); }
+        if (timer === null) {
+          document.querySelector('body').innerText = 'Canceled';
+          window.stop();
+        } else if (Number.isNaN(timer) || timer <= 0) { window.location.reload(); }
 
         const el = document.querySelector('p');
 
@@ -66,3 +83,4 @@
     </script>
 </body>
 </html>
+§
